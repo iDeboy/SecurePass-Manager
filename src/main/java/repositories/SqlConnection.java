@@ -8,7 +8,7 @@ public class SqlConnection {
 
 	private final String user = "root";
 	private final String password = "hono2002";
-	private final String dataBase = "mysqljava";
+	private final String dataBase = "SecurePassManager";
 	private final String host = "localhost";
 	private final String port = "3306";
 

@@ -1,5 +1,13 @@
 package main;
 
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import repositories.AESCipher;
 import views.Login;
 
 public class Main {
