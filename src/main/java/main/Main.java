@@ -1,17 +1,18 @@
 package main;
 
-import views.Login;
+import views.ViewLogin;
+import controllers.ControlLogin;
+
 
 public class Main {
 
-	public static void main(String[] args) {
-
-		java.awt.EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				new Login().setVisible(true);
-			}
-		});
-
-	}
+    public static void main(String[] args) {
+        
+        ViewLogin viewLogin = new  ViewLogin();
+        
+        ControlLogin controlLogin = new ControlLogin(viewLogin);
+        controlLogin.iniciarVistaLogin();
+        
+    }
 
 }
