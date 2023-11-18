@@ -7,38 +7,44 @@ import java.util.Date;
  */
 public abstract class AbstractCredencial implements ICredencial {
 
+	protected String nombreUsuario;
+
 	protected int id;
 	protected Date fechaAlta;
 	protected Date fechaUpdate;
 	protected String infoExtra;
 
-	/**
-	 * Constructor de datos básicos que tiene una credencial.
-	 *
-	 * @param id Id de la credencial
-	 * @param fechaAlta Fecha de alta de la credencial
-	 * @param fechaUpdate Fecha en la que se actualizó algo de la credencial.
-	 * @param infoExtra Algún dato extra que sea relevante para la credencial.
-	 */
-	protected AbstractCredencial(int id, Date fechaAlta, Date fechaUpdate, String infoExtra) {
-		this.id = id;
-		this.fechaAlta = fechaAlta;
-		this.fechaUpdate = fechaUpdate;
-		this.infoExtra = infoExtra;
+	@Override
+	public String getNombreUsuario() {
+		return nombreUsuario;
 	}
 
-	/**
-	 * Constructor de datos básicos que tiene una credencial sin su identificador.
-	 * <br><br>
-	 * Este constructor se utiliza para la operación de agregar credencial,
-	 * <br>
-	 * ya que la id no es relevante porque se genera por la base de datos.
-	 * @param fechaAlta Fecha de alta de la credencial
-	 * @param fechaUpdate Fecha en la que se actualizó algo de la credencial.
-	 * @param infoExtra Algún dato extra que sea relevante para la credencial.
-	 */
-	protected AbstractCredencial(Date fechaAlta, Date fechaUpdate, String infoExtra) {
-		this(0, fechaAlta, fechaUpdate, infoExtra);
+	@Override
+	public void setNombreUsuario(String nombreUsuario) throws Exception {
+		if (nombreUsuario.length() > 15) {
+			throw new Exception("La logitud del nombre de usuario no debe ser mayor que 15.");
+		}
+		this.nombreUsuario = nombreUsuario;
+	}
+
+	@Override
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	@Override
+	public void setFechaAlta(Date fechaAlta) {
+		this.fechaAlta = fechaAlta;
+	}
+
+	@Override
+	public void setFechaUpdate(Date fechaUpdate) {
+		this.fechaUpdate = fechaUpdate;
+	}
+
+	@Override
+	public void setInfoExtra(String infoExtra) {
+		this.infoExtra = infoExtra;
 	}
 
 	@Override
