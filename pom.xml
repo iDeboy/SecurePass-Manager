@@ -27,14 +27,15 @@
 			<scope>test</scope>
 		</dependency>
         <dependency>
-            <groupId>unknown.binary</groupId>
-            <artifactId>AbsoluteLayout</artifactId>
-            <version>SNAPSHOT</version>
-        </dependency>
-        <dependency>
             <groupId>FlatLaf</groupId>
             <artifactId>FlatLaf</artifactId>
             <version>3.2.5</version>
+        </dependency>
+        <dependency>
+            <groupId>unknown.binary</groupId>
+            <artifactId>AbsoluteLayout</artifactId>
+            <version>SNAPSHOT</version>
+            <type>jar</type>
         </dependency>
     </dependencies>
 	<properties>
