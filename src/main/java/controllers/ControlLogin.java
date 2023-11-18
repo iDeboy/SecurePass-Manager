@@ -4,7 +4,11 @@
  */
 package controllers;
 
+import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import views.ViewLogin;
 
 /**
@@ -19,13 +23,21 @@ public class ControlLogin{ //implements ActionListener, MouseListener
         this.viewLogin = viewLogin;
     }
     
-    public void iniciarVistaLogin(){
+    public void iniciarVistaLogin() throws UnsupportedLookAndFeelException{
         viewLogin.setTitle("SecurePass Manager");
         viewLogin.pack();
         viewLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         viewLogin.setLocation(250, 90);
-        viewLogin.setVisible(true);
         viewLogin.setResizable(false);
+        
+        UIManager.setLookAndFeel(new FlatLightLaf());
+        
+        viewLogin.bEntrar.putClientProperty("JButton.buttonType", "roundRect");
+        viewLogin.txtNomUsuario.putClientProperty("JComponent.roundRect", true);
+        viewLogin.pfPassword.putClientProperty("JComponent.roundRect", true);
+        
+        SwingUtilities.updateComponentTreeUI(viewLogin);
+        viewLogin.setVisible(true);
     }
     
 }
