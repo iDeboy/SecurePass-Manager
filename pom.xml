@@ -31,6 +31,11 @@
             <artifactId>AbsoluteLayout</artifactId>
             <version>SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>FlatLaf</groupId>
+            <artifactId>FlatLaf</artifactId>
+            <version>3.2.5</version>
+        </dependency>
     </dependencies>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

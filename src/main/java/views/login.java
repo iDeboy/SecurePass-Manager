@@ -29,6 +29,17 @@ public class login extends javax.swing.JFrame {
         PanelPrincipal = new javax.swing.JPanel();
         jlbImg1 = new javax.swing.JLabel();
         jlbImgLog = new javax.swing.JLabel();
+        jlbNomApp = new javax.swing.JLabel();
+        jlbEslogan = new javax.swing.JLabel();
+        jlbTitulo = new javax.swing.JLabel();
+        jlbIco1 = new javax.swing.JLabel();
+        txtNomUsuario = new javax.swing.JTextField();
+        pfPassword = new javax.swing.JPasswordField();
+        jlbIco2 = new javax.swing.JLabel();
+        bEntrar = new javax.swing.JButton();
+        jlbPregunta = new javax.swing.JLabel();
+        jlbIco3 = new javax.swing.JLabel();
+        jlbRegistro = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SecurePass Manager");
@@ -43,6 +54,61 @@ public class login extends javax.swing.JFrame {
 
         jlbImgLog.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/img2.png"))); // NOI18N
         PanelPrincipal.add(jlbImgLog, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, -1, -1));
+
+        jlbNomApp.setFont(new java.awt.Font("Roboto Flex", 1, 20)); // NOI18N
+        jlbNomApp.setForeground(new java.awt.Color(255, 255, 255));
+        jlbNomApp.setText("SecurePass Manager");
+        PanelPrincipal.add(jlbNomApp, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 90, -1, -1));
+
+        jlbEslogan.setFont(new java.awt.Font("Roboto Flex", 0, 16)); // NOI18N
+        jlbEslogan.setForeground(new java.awt.Color(255, 255, 255));
+        jlbEslogan.setText("Tu llave maestra para la seguridad digital ");
+        PanelPrincipal.add(jlbEslogan, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 120, -1, -1));
+
+        jlbTitulo.setFont(new java.awt.Font("Roboto", 1, 20)); // NOI18N
+        jlbTitulo.setForeground(new java.awt.Color(255, 255, 255));
+        jlbTitulo.setText("INICIAR SESIÓN");
+        PanelPrincipal.add(jlbTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 220, -1, -1));
+
+        jlbIco1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/user.png"))); // NOI18N
+        PanelPrincipal.add(jlbIco1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 290, -1, -1));
+
+        txtNomUsuario.setFont(new java.awt.Font("Roboto Mono", 0, 15)); // NOI18N
+        txtNomUsuario.setForeground(new java.awt.Color(102, 102, 102));
+        txtNomUsuario.setText("Usuario");
+        txtNomUsuario.setPreferredSize(new java.awt.Dimension(260, 44));
+        PanelPrincipal.add(txtNomUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 280, -1, -1));
+
+        pfPassword.setFont(new java.awt.Font("Roboto Mono", 0, 15)); // NOI18N
+        pfPassword.setForeground(new java.awt.Color(102, 102, 102));
+        pfPassword.setText("Contraseña");
+        pfPassword.setToolTipText("");
+        pfPassword.setPreferredSize(new java.awt.Dimension(260, 44));
+        PanelPrincipal.add(pfPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 350, -1, -1));
+
+        jlbIco2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/look.png"))); // NOI18N
+        PanelPrincipal.add(jlbIco2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 360, -1, -1));
+
+        bEntrar.setBackground(new java.awt.Color(141, 174, 236));
+        bEntrar.setFont(new java.awt.Font("Roboto Mono Medium", 0, 16)); // NOI18N
+        bEntrar.setForeground(new java.awt.Color(51, 51, 51));
+        bEntrar.setText("ENTRAR");
+        bEntrar.setBorder(null);
+        bEntrar.setPreferredSize(new java.awt.Dimension(227, 44));
+        PanelPrincipal.add(bEntrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 450, -1, -1));
+
+        jlbPregunta.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
+        jlbPregunta.setForeground(new java.awt.Color(255, 255, 255));
+        jlbPregunta.setText("¿No tienes cuenta?");
+        PanelPrincipal.add(jlbPregunta, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 570, -1, -1));
+
+        jlbIco3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/eyeOff.png"))); // NOI18N
+        PanelPrincipal.add(jlbIco3, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 360, -1, -1));
+
+        jlbRegistro.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
+        jlbRegistro.setForeground(new java.awt.Color(255, 255, 255));
+        jlbRegistro.setText("Regístrate");
+        PanelPrincipal.add(jlbRegistro, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 570, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -95,7 +161,18 @@ public class login extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelPrincipal;
+    private javax.swing.JButton bEntrar;
+    private javax.swing.JLabel jlbEslogan;
+    private javax.swing.JLabel jlbIco1;
+    private javax.swing.JLabel jlbIco2;
+    private javax.swing.JLabel jlbIco3;
     private javax.swing.JLabel jlbImg1;
     private javax.swing.JLabel jlbImgLog;
+    private javax.swing.JLabel jlbNomApp;
+    private javax.swing.JLabel jlbPregunta;
+    private javax.swing.JLabel jlbRegistro;
+    private javax.swing.JLabel jlbTitulo;
+    private javax.swing.JPasswordField pfPassword;
+    private javax.swing.JTextField txtNomUsuario;
     // End of variables declaration//GEN-END:variables
 }
