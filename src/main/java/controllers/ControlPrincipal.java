@@ -66,6 +66,7 @@ public class ControlPrincipal implements ActionListener{
         viewTipoCrede.setLocation(250, 90);
         viewTipoCrede.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         viewTipoCrede.setResizable(false);
+        viewTipoCrede.setLocationRelativeTo(viewPrincipal);
         
         UIManager.setLookAndFeel(new FlatLightLaf());
         
