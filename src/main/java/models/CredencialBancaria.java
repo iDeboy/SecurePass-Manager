@@ -1,11 +1,12 @@
 package models;
 
+import java.util.regex.Pattern;
 import repositories.AESCipher;
 
 public final class CredencialBancaria extends AbstractCredencial {
 
 	private String nombreBanco;
-	private int numeroTarjeta;
+	private String numeroTarjeta;
 	private String cvv;
 	private java.sql.Date fechaCaducidad;
 
@@ -26,10 +27,22 @@ public final class CredencialBancaria extends AbstractCredencial {
 
 	/**
 	 * Asigna el numero de tarjeta de la credencial bancaria.
+	 * <br>
+	 * Nota: El numero de tarjeta debe tener 16 digitos.
 	 *
 	 * @param numeroTarjeta Número de tarjeta
 	 */
-	public void setNumeroTarjeta(int numeroTarjeta) {
+	public void setNumeroTarjeta(String numeroTarjeta) throws Exception {
+
+		if (numeroTarjeta.length() != 16) {
+			throw new Exception("El numero de tarjeta debe de tener 16 digitos");
+		}
+
+		Pattern pattern = Pattern.compile("^\\d{16}$");
+		if (!pattern.matcher(numeroTarjeta).matches()) {
+			throw new Exception("El numero de tarjeta no tiene un formati valudo.");
+		}
+
 		this.numeroTarjeta = numeroTarjeta;
 	}
 
@@ -71,7 +84,7 @@ public final class CredencialBancaria extends AbstractCredencial {
 	 *
 	 * @return Devuelve el numero de tarjeta, este numero consta de 16 digitos.
 	 */
-	public int getNumeroTarjeta() {
+	public String getNumeroTarjeta() {
 		return numeroTarjeta;
 	}
 

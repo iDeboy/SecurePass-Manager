@@ -1,4 +1,4 @@
-package repositories;
+package sql;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,9 +6,9 @@ import java.sql.SQLException;
 
 public class SqlConnection {
 
-	private final String user = "root";
-	private final String password = "hono2002";
-	private final String dataBase = "SecurePassManager";
+	private final String user = "SecurePassManager";
+	private final String password = "app@2023";
+	private final String dataBase = "SecurePassManagerDB";
 	private final String host = "localhost";
 	private final String port = "3306";
 

@@ -1,5 +1,6 @@
 package repositories;
 
+import sql.SqlConnection;
 import models.Usuario;
 
 /**
@@ -31,7 +32,7 @@ public final class RepositorioUsuario {
 			user.setPassword(password);
 
 			try (var stmt = conn.prepareStatement(
-							"SELECT Nombre_Usuario_Titular, AP_PAT, AP_MAT"
+							"SELECT Nombre_Usuario_Titular, AP_PAT, AP_MAT "
 							+ "FROM T_USUARIOS "
 							+ "WHERE PK_Nombre_Usuario = ? AND Password = ?")) {
 
@@ -78,7 +79,7 @@ public final class RepositorioUsuario {
 		try (var conn = sql.getConnection()) {
 
 			try (var stmt = conn.prepareStatement(
-							"INSERT INTO T_USUARIOS"
+							"INSERT INTO T_USUARIOS "
 							+ "VALUES(?, ?, ?, ?, ?)")) {
 
 				stmt.setString(1, usuario.getNombre());
@@ -99,5 +100,4 @@ public final class RepositorioUsuario {
 		return false;
 	}
 
-	
 }

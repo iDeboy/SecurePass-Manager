@@ -10,7 +10,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import repositories.AESCipher;
 
-public class CipherTests {
+public final class CipherTests {
 
 	private final SecureRandom random;
 

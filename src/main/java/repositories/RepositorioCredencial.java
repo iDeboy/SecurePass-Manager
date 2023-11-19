@@ -1,5 +1,6 @@
 package repositories;
 
+import sql.SqlConnection;
 import java.util.ArrayList;
 import java.util.List;
 import models.*;
@@ -30,10 +31,12 @@ public final class RepositorioCredencial {
 
 		try (var conn = sql.getConnection()) {
 
+			conn.setAutoCommit(false);
+
 			if (credencial instanceof CredencialInternet cInternet) {
 
 				try (var stmt = conn.prepareStatement(
-								"INSERT INTO T_CREDENCIALES(Nombre_Plataforma, Usuario_Web, URL, Password, Fecha_Alta, Fecha_Update, Extra, FK_Nombre_Usuario)"
+								"INSERT INTO T_CREDENCIALES(Nombre_Plataforma, Usuario_Web, URL, Password, Fecha_Alta, Fecha_Update, Extra, FK_Nombre_Usuario) "
 								+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?)")) {
 
 					stmt.setString(1, cInternet.getNombrePlataforma());
@@ -52,11 +55,11 @@ public final class RepositorioCredencial {
 			} else if (credencial instanceof CredencialBancaria cBancaria) {
 
 				try (var stmt = conn.prepareStatement(
-								"INSERT INTO T_CREDENCIALES_BANCARIAS(Nombre_Banco, Numero_Tarjeta, CVV, Fecha_Caducidad, Fecha_Alta, Fecha_Update, Extra, FK_Nombre_Usuario)"
+								"INSERT INTO T_CREDENCIALES_BANCARIAS(Nombre_Banco, Numero_Tarjeta, CVV, Fecha_Caducidad, Fecha_Alta, Fecha_Update, Extra, FK_Nombre_Usuario) "
 								+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?)")) {
 
 					stmt.setString(1, cBancaria.getNombreBanco());
-					stmt.setInt(2, cBancaria.getNumeroTarjeta());
+					stmt.setString(2, cBancaria.getNumeroTarjeta());
 					stmt.setString(3, cBancaria.getEncryptedCVV());
 					stmt.setDate(4, cBancaria.getFechaCaducidad());
 					stmt.setDate(5, cBancaria.getFechaAlta());
@@ -77,7 +80,7 @@ public final class RepositorioCredencial {
 					if (result.next()) {
 
 						credencial.setId(result.getInt(1));
-
+						conn.commit();
 						return true;
 					}
 
@@ -85,6 +88,7 @@ public final class RepositorioCredencial {
 
 			}
 
+			conn.rollback();
 		} catch (Exception ex) {
 		}
 
@@ -111,7 +115,7 @@ public final class RepositorioCredencial {
 			if (credencial instanceof CredencialInternet) {
 
 				try (var stmt = conn.prepareStatement(
-								"DELETE FROM T_CREDENCIALES"
+								"DELETE FROM T_CREDENCIALES "
 								+ "WHERE ID_Credencial = ?")) {
 
 					stmt.setInt(1, credencial.getId());
@@ -123,7 +127,7 @@ public final class RepositorioCredencial {
 			} else if (credencial instanceof CredencialBancaria) {
 
 				try (var stmt = conn.prepareStatement(
-								"DELETE FROM T_CREDENCIALES_BANCARIAS"
+								"DELETE FROM T_CREDENCIALES_BANCARIAS "
 								+ "WHERE ID_Credencial_Bancaria = ?")) {
 
 					stmt.setInt(1, credencial.getId());
@@ -164,9 +168,9 @@ public final class RepositorioCredencial {
 			if (credencial instanceof CredencialInternet cInternet) {
 
 				try (var stmt = conn.prepareStatement(
-								"UPDATE T_CREDENCIALES"
-								+ "SET Nombre_Plataforma = ?, Usuario_Web = ?, URL = ?, Password = ?,"
-								+ "Fecha_Update = ?, Extra = ?"
+								"UPDATE T_CREDENCIALES "
+								+ "SET Nombre_Plataforma = ?, Usuario_Web = ?, URL = ?, Password = ?, "
+								+ "Fecha_Update = ?, Extra = ? "
 								+ "WHERE ID_Credencial = ?")) {
 
 					stmt.setString(1, cInternet.getNombrePlataforma());
@@ -184,13 +188,13 @@ public final class RepositorioCredencial {
 			} else if (credencial instanceof CredencialBancaria cBancaria) {
 
 				try (var stmt = conn.prepareStatement(
-								"UPDATE T_CREDENCIALES_BANCARIAS"
-								+ "SET Nombre_Banco = ?, Numero_Tarjeta = ?, CVV = ?, Fecha_Caducidad = ?,"
-								+ "Fecha_Update = ?, Extra = ?"
+								"UPDATE T_CREDENCIALES_BANCARIAS "
+								+ "SET Nombre_Banco = ?, Numero_Tarjeta = ?, CVV = ?, Fecha_Caducidad = ?, "
+								+ "Fecha_Update = ?, Extra = ? "
 								+ "WHERE ID_Credencial_Bancaria = ?")) {
 
 					stmt.setString(1, cBancaria.getNombreBanco());
-					stmt.setInt(2, cBancaria.getNumeroTarjeta());
+					stmt.setString(2, cBancaria.getNumeroTarjeta());
 					stmt.setString(3, cBancaria.getEncryptedCVV());
 					stmt.setDate(4, cBancaria.getFechaCaducidad());
 					stmt.setDate(5, cBancaria.getFechaUpdate());
@@ -211,25 +215,26 @@ public final class RepositorioCredencial {
 	}
 
 	/**
-	 * Extrae todas las credenciales que le pertenezcan a un usuario.
+	 * Obtiene todas las credenciales de internet de un usuario.
 	 *
-	 * @param usuario El usuario al cual se le va a buscar las credenciales.
-	 * @return Devuelve {@code null} si ocurrio un error durante la extracción o
-	 * devuelve las credenciales que le pertenezcan al usuario. La lista que
-	 * devuelve puede estar vacia.
+	 * @param usuario El usuario al cual se le van a buscar las credenciales.
+	 * @return Devuelve la lista de credenciales de internet que tiene el usuario,
+	 * devuelve {@code null} si hugo algun error.
 	 */
-	public static List<ICredencial> getCredenciales(Usuario usuario) {
+	public static List<CredencialInternet> getCredencialesInternet(Usuario usuario) {
 
 		if (usuario == null) {
 			return null;
 		}
 
-		var credenciales = new ArrayList<ICredencial>();
+		var credenciales = new ArrayList<CredencialInternet>();
 		SqlConnection sql = new SqlConnection();
 
 		try (var conn = sql.getConnection()) {
 
-			try (var stmt = conn.prepareStatement("")) {
+			try (var stmt = conn.prepareStatement(
+							"SELECT * FROM T_CREDENCIALES "
+							+ "WHERE FK_Nombre_Usuario = ?")) {
 
 				stmt.setString(1, usuario.getNombre());
 
@@ -244,7 +249,7 @@ public final class RepositorioCredencial {
 						cInternet.setUsuarioWeb(result.getString(3));
 						cInternet.setUrl(result.getString(4));
 
-						var password = AESCipher.decrypt(cInternet.getNombreUsuario(), result.getString(5));
+						var password = AESCipher.decrypt(result.getString(5), cInternet.getNombreUsuario());
 						cInternet.setPassword(password);
 						cInternet.setFechaAlta(result.getDate(6));
 						cInternet.setFechaUpdate(result.getDate(7));
@@ -257,7 +262,33 @@ public final class RepositorioCredencial {
 
 			}
 
-			try (var stmt = conn.prepareStatement("")) {
+		} catch (Exception ex) {
+			return null;
+		}
+
+		return credenciales;
+	}
+
+	/**
+	 * Obtiene todas las credenciales bancarias de un usuario.
+	 *
+	 * @param usuario El usuario al cual se le van a buscar las credenciales.
+	 * @return Devuelve la lista de credenciales bancarias que tiene el usuario,
+	 * devuelve {@code null} si hugo algun error.
+	 */
+	public static List<CredencialBancaria> getCredencialesBancarias(Usuario usuario) {
+
+		if (usuario == null) {
+			return null;
+		}
+
+		var credenciales = new ArrayList<CredencialBancaria>();
+		SqlConnection sql = new SqlConnection();
+		try (var conn = sql.getConnection()) {
+
+			try (var stmt = conn.prepareStatement(
+							"SELECT * FROM T_CREDENCIALES_BANCARIAS "
+							+ "WHERE FK_Nombre_Usuario = ?")) {
 
 				stmt.setString(1, usuario.getNombre());
 
@@ -269,9 +300,9 @@ public final class RepositorioCredencial {
 						cBancaria.setNombreUsuario(usuario.getNombre());
 						cBancaria.setId(result.getInt(1));
 						cBancaria.setNombreBanco(result.getString(2));
-						cBancaria.setNumeroTarjeta(result.getInt(3));
+						cBancaria.setNumeroTarjeta(result.getString(3));
 
-						var cvv = AESCipher.decrypt(cBancaria.getNombreUsuario(), result.getString(4));
+						var cvv = AESCipher.decrypt(result.getString(4), cBancaria.getNombreUsuario());
 						cBancaria.setCVV(cvv);
 
 						cBancaria.setFechaCaducidad(result.getDate(5));
@@ -289,6 +320,40 @@ public final class RepositorioCredencial {
 		} catch (Exception ex) {
 			return null;
 		}
+
+		return credenciales;
+	}
+
+	/**
+	 * Extrae todas las credenciales que le pertenezcan a un usuario.
+	 *
+	 * @param usuario El usuario al cual se le va a buscar las credenciales.
+	 * @return Devuelve {@code null} si ocurrio un error durante la extracción o
+	 * devuelve las credenciales que le pertenezcan al usuario. La lista que
+	 * devuelve puede estar vacia.
+	 */
+	public static List<ICredencial> getCredenciales(Usuario usuario) {
+
+		if (usuario == null) {
+			return null;
+		}
+
+		var credenciales = new ArrayList<ICredencial>();
+
+		var credencialesInternet = getCredencialesInternet(usuario);
+
+		if (credencialesInternet == null) {
+			return null;
+		}
+
+		var credencialesBancarias = getCredencialesBancarias(usuario);
+
+		if (credencialesBancarias == null) {
+			return null;
+		}
+
+		credenciales.addAll(credencialesInternet);
+		credenciales.addAll(credencialesBancarias);
 
 		return credenciales;
 	}
