@@ -59,7 +59,7 @@ public class ViewTipoCreden extends JFrame{
         bBanco.setHorizontalAlignment(SwingConstants.CENTER);
         
         //Diseño
-        PanelPrincipal.add(jlbTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 40, 360, -1));
+        PanelPrincipal.add(jlbTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 40, 380, -1));
         PanelPrincipal.add(bBanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 130, -1, -1));
         PanelPrincipal.add(bPlataforma, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, -1, -1));
         
