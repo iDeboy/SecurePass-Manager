@@ -1,7 +1,5 @@
 package models;
 
-import java.util.Date;
-
 /**
  * Interfaz que representa los métodos y propiedades básicas que debe tener una
  * credencial.
@@ -39,7 +37,7 @@ public interface ICredencial {
 	 *
 	 * @param fechaAlta Fecha de alta.
 	 */
-	public void setFechaAlta(Date fechaAlta);
+	public void setFechaAlta(java.util.Date fechaAlta);
 
 	/**
 	 * Asigna el valor de la fecha del utimo cambio en la credecial.
@@ -48,7 +46,7 @@ public interface ICredencial {
 	 *
 	 * @param fechaUpdate Fecha de ultimo cambio
 	 */
-	public void setFechaUpdate(Date fechaUpdate);
+	public void setFechaUpdate(java.util.Date fechaUpdate);
 
 	/**
 	 * Asigna el valor de cualquier dato extra para la credencial.
@@ -68,12 +66,12 @@ public interface ICredencial {
 	/**
 	 * @return Devuelve la fecha en la que se dio de alta la credencial.
 	 */
-	Date getFechaAlta();
+	java.sql.Date getFechaAlta();
 
 	/**
 	 * @return Devuelve la ultima fecha en la que se actualizó la credencial.
 	 */
-	Date getFechaUpdate();
+	java.sql.Date getFechaUpdate();
 
 	/**
 	 * @return Devuelve algun dato extra que sea relevante para la credencial.

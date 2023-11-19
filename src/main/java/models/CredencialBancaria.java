@@ -1,6 +1,5 @@
 package models;
 
-import java.util.Date;
 import repositories.AESCipher;
 
 public final class CredencialBancaria extends AbstractCredencial {
@@ -8,7 +7,7 @@ public final class CredencialBancaria extends AbstractCredencial {
 	private String nombreBanco;
 	private int numeroTarjeta;
 	private String cvv;
-	private Date fechaCaducidad;
+	private java.sql.Date fechaCaducidad;
 
 	/**
 	 * Asigna el nombre del banco a la credencial bancaria.
@@ -53,9 +52,9 @@ public final class CredencialBancaria extends AbstractCredencial {
 	 *
 	 * @param fechaCaducidad Fecha de caducidad de la tarjeta.
 	 */
-	public void setFechaCaducidad(Date fechaCaducidad) {
+	public void setFechaCaducidad(java.util.Date fechaCaducidad) {
 
-		this.fechaCaducidad = new Date(
+		this.fechaCaducidad = new java.sql.Date(
 						fechaCaducidad.getYear(),
 						fechaCaducidad.getMonth(), 1);
 	}
@@ -97,7 +96,7 @@ public final class CredencialBancaria extends AbstractCredencial {
 	 *
 	 * @return Devuelve la fecha de caducidad de la credencial.
 	 */
-	public Date getFechaCaducidad() {
+	public java.sql.Date getFechaCaducidad() {
 		return fechaCaducidad;
 	}
 

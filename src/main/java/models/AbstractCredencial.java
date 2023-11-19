@@ -1,7 +1,5 @@
 package models;
 
-import java.util.Date;
-
 /**
  * Representación abstracta de una credencial.
  */
@@ -10,8 +8,8 @@ public abstract class AbstractCredencial implements ICredencial {
 	protected String nombreUsuario;
 
 	protected int id;
-	protected Date fechaAlta;
-	protected Date fechaUpdate;
+	protected java.sql.Date fechaAlta;
+	protected java.sql.Date fechaUpdate;
 	protected String infoExtra;
 
 	@Override
@@ -33,13 +31,13 @@ public abstract class AbstractCredencial implements ICredencial {
 	}
 
 	@Override
-	public void setFechaAlta(Date fechaAlta) {
-		this.fechaAlta = fechaAlta;
+	public void setFechaAlta(java.util.Date fechaAlta) {
+		this.fechaAlta = new java.sql.Date(fechaAlta.getTime());
 	}
 
 	@Override
-	public void setFechaUpdate(Date fechaUpdate) {
-		this.fechaUpdate = fechaUpdate;
+	public void setFechaUpdate(java.util.Date fechaUpdate) {
+		this.fechaUpdate = new java.sql.Date(fechaUpdate.getTime());
 	}
 
 	@Override
@@ -53,12 +51,12 @@ public abstract class AbstractCredencial implements ICredencial {
 	}
 
 	@Override
-	public Date getFechaAlta() {
+	public java.sql.Date getFechaAlta() {
 		return fechaAlta;
 	}
 
 	@Override
-	public Date getFechaUpdate() {
+	public java.sql.Date getFechaUpdate() {
 		return fechaUpdate;
 	}
 
