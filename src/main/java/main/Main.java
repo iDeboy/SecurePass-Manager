@@ -1,5 +1,6 @@
 package main;
 
+import controllers.ControlCrearCredencial;
 import controllers.ControlCredencial;
 import views.ViewLogin;
 import controllers.ControlLogin;
@@ -8,6 +9,8 @@ import javax.swing.UnsupportedLookAndFeelException;
 import views.ViewPrincipal;
 import views.ViewRegistro;
 import controllers.ControlPrincipal;
+import views.ViewCrearCredencialB;
+import views.ViewCrearCredencialP;
 import views.ViewCredencialB;
 import views.ViewCredencialP;
 import views.ViewTipoCreden;
@@ -22,19 +25,21 @@ public class Main {
         ViewRegistro viewRegistro = new ViewRegistro();
 //        ViewCredencialP viewCredencialP  = new ViewCredencialP();
 //        ViewCredencialB viewCredencialB = new ViewCredencialB();
+//        ViewCrearCredencialP viewCrearP = new ViewCrearCredencialP();
+//        ViewCrearCredencialB viewCrearB = new ViewCrearCredencialB();
 
         ControlLogin controlLogin = new ControlLogin(viewLogin, null,null);
         ControlRegistro controlRegistro = new ControlRegistro(viewRegistro, controlLogin,null);
         ControlPrincipal controlPrincipal = new ControlPrincipal(viewPrincipal,controlLogin,controlRegistro,viewTipoCreden);
-//        ControlCredencial controlCredencial = new ControlCredencial(viewCredencial,controlPrincipal);
 //        ControlCredencial controlCredencial = new ControlCredencial(viewCredencialP,controlPrincipal,viewCredencialB);
+//        ControlCrearCredencial controlCrearCredencial = new ControlCrearCredencial(viewCrearP,controlPrincipal,viewCrearB);
         
         controlLogin.setControlRegistro(controlRegistro);
         controlLogin.setControlPrincipal(controlPrincipal);
         controlRegistro.setControlPrincipal(controlPrincipal);
         
         controlLogin.iniciarVistaLogin();
-        
+
     }
 
 }
