@@ -23,6 +23,7 @@ public class ControlLogin implements MouseListener{ //implements ActionListener,
 
     private ViewLogin viewLogin;
     private boolean iconoAlternativo = false;
+    private boolean bandera = false;
 
     public ControlLogin(ViewLogin viewLogin) {
         this.viewLogin = viewLogin;
@@ -98,7 +99,7 @@ public class ControlLogin implements MouseListener{ //implements ActionListener,
             iconoAlternativo = !iconoAlternativo;
         }
     }
-
+    
     @Override
     public void mouseReleased(MouseEvent e) {
 //        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
