@@ -129,7 +129,6 @@ public class ViewCredencialB extends JFrame{
         txtNoTarjeta.setBackground(new java.awt.Color(185, 194, 210));
         txtNoTarjeta.setFont(new java.awt.Font("Roboto Flex", 0, 15)); // NOI18N
         txtNoTarjeta.setForeground(new java.awt.Color(51, 51, 51));
-        txtNoTarjeta.setText("Google");
         txtNoTarjeta.setBorder(null);
         txtNoTarjeta.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         
@@ -137,7 +136,6 @@ public class ViewCredencialB extends JFrame{
         txtBanco.setBackground(new java.awt.Color(185, 194, 210));
         txtBanco.setFont(new java.awt.Font("Roboto Flex", 0, 15)); // NOI18N
         txtBanco.setForeground(new java.awt.Color(51, 51, 51));
-        txtBanco.setText("Google");
         txtBanco.setBorder(null);
         txtBanco.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         
@@ -145,7 +143,6 @@ public class ViewCredencialB extends JFrame{
         txtCVV.setBackground(new java.awt.Color(185, 194, 210));
         txtCVV.setFont(new java.awt.Font("Roboto Flex", 0, 15)); // NOI18N
         txtCVV.setForeground(new java.awt.Color(51, 51, 51));
-        txtCVV.setText("Google");
         txtCVV.setBorder(null);
         txtCVV.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         
@@ -153,7 +150,6 @@ public class ViewCredencialB extends JFrame{
         txtCaducidad.setBackground(new java.awt.Color(185, 194, 210));
         txtCaducidad.setFont(new java.awt.Font("Roboto Flex", 0, 15)); // NOI18N
         txtCaducidad.setForeground(new java.awt.Color(51, 51, 51));
-        txtCaducidad.setText("Google");
         txtCaducidad.setBorder(null);
         txtCaducidad.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         
@@ -161,7 +157,6 @@ public class ViewCredencialB extends JFrame{
         txtDatos.setBackground(new java.awt.Color(185, 194, 210));
         txtDatos.setFont(new java.awt.Font("Roboto Flex", 0, 15)); // NOI18N
         txtDatos.setForeground(new java.awt.Color(51, 51, 51));
-        txtDatos.setText("Google");
         txtDatos.setBorder(null);
         txtDatos.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         

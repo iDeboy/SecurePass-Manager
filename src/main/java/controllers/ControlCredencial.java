@@ -37,8 +37,6 @@ public class ControlCredencial {
         
         UIManager.setLookAndFeel(new FlatLightLaf());
         
-        UIManager.put( "Component.arrowType", "triangle" );
-        
         SwingUtilities.updateComponentTreeUI(viewCredencialP);
         viewCredencialP.setVisible(true);
     }
@@ -51,8 +49,6 @@ public class ControlCredencial {
         viewCredencialB.setResizable(false);
         
         UIManager.setLookAndFeel(new FlatLightLaf());
-        
-        UIManager.put( "Component.arrowType", "triangle" );
         
         SwingUtilities.updateComponentTreeUI(viewCredencialB);
         viewCredencialB.setVisible(true);

@@ -132,7 +132,6 @@ public class ViewCredencialP extends JFrame{
         txtUsuario.setBackground(new java.awt.Color(185, 194, 210));
         txtUsuario.setFont(new java.awt.Font("Roboto Flex", 0, 15)); // NOI18N
         txtUsuario.setForeground(new java.awt.Color(51, 51, 51));
-        txtUsuario.setText("Google");
         txtUsuario.setBorder(null);
         txtUsuario.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         
@@ -140,7 +139,6 @@ public class ViewCredencialP extends JFrame{
         txtPlataforma.setBackground(new java.awt.Color(185, 194, 210));
         txtPlataforma.setFont(new java.awt.Font("Roboto Flex", 0, 15)); // NOI18N
         txtPlataforma.setForeground(new java.awt.Color(51, 51, 51));
-        txtPlataforma.setText("Google");
         txtPlataforma.setBorder(null);
         txtPlataforma.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         
@@ -148,7 +146,6 @@ public class ViewCredencialP extends JFrame{
         txtPassword.setBackground(new java.awt.Color(185, 194, 210));
         txtPassword.setFont(new java.awt.Font("Roboto Flex", 0, 15)); // NOI18N
         txtPassword.setForeground(new java.awt.Color(51, 51, 51));
-        txtPassword.setText("Google");
         txtPassword.setBorder(null);
         txtPassword.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         
@@ -156,7 +153,6 @@ public class ViewCredencialP extends JFrame{
         txtURL.setBackground(new java.awt.Color(185, 194, 210));
         txtURL.setFont(new java.awt.Font("Roboto Flex", 0, 15)); // NOI18N
         txtURL.setForeground(new java.awt.Color(51, 51, 51));
-        txtURL.setText("Google");
         txtURL.setBorder(null);
         txtURL.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         
@@ -164,7 +160,6 @@ public class ViewCredencialP extends JFrame{
         txtDatos.setBackground(new java.awt.Color(185, 194, 210));
         txtDatos.setFont(new java.awt.Font("Roboto Flex", 0, 15)); // NOI18N
         txtDatos.setForeground(new java.awt.Color(51, 51, 51));
-        txtDatos.setText("Google");
         txtDatos.setBorder(null);
         txtDatos.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         
