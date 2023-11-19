@@ -71,6 +71,7 @@ public class ViewLogin extends JFrame{
         
         jlbIco3 = new JLabel();
         jlbIco3.setIcon(new ImageIcon(getClass().getResource("/icons/eyeOFF.png")));
+        jlbIco3.setCursor(new Cursor(Cursor.HAND_CURSOR));
         
         jlbPregunta = new JLabel();
         jlbPregunta.setText("¿No tienes cuenta?");
@@ -81,7 +82,7 @@ public class ViewLogin extends JFrame{
         jlbRegistro.setText("Regístrate");
         jlbRegistro.setFont(new Font("Roboto", 0, 16));
         jlbRegistro.setForeground(new Color(255, 255, 255));
-        jlbRegistro.setCursor(new java.awt.Cursor(Cursor.HAND_CURSOR));
+        jlbRegistro.setCursor(new Cursor(Cursor.HAND_CURSOR));
         
         Font fuenteActual = jlbRegistro.getFont();
         Map<TextAttribute, Object> atributos = new HashMap<>(fuenteActual.getAttributes());
@@ -111,7 +112,7 @@ public class ViewLogin extends JFrame{
         bEntrar.setBackground(new Color(141, 174, 236));
         bEntrar.setBorder(null);
         bEntrar.setPreferredSize(new Dimension(227, 44));
-        bEntrar.setCursor(new Cursor(java.awt.Cursor.HAND_CURSOR));
+        bEntrar.setCursor(new Cursor(Cursor.HAND_CURSOR));
         
         //Diseño
         PanelPrincipal.add(jlbImg1, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 0, -1, -1));
