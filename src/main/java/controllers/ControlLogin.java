@@ -28,16 +28,27 @@ public class ControlLogin implements MouseListener,ActionListener{ //implements 
     private ViewLogin viewLogin;
     private ControlRegistro controlRegistro;
     private boolean bandera = true;
+    private ControlPrincipal controlPrincipal;
 
-    public ControlLogin(ViewLogin viewLogin, ControlRegistro controlRegistro) {
+    public ControlLogin(ViewLogin viewLogin, ControlRegistro controlRegistro, ControlPrincipal controlPrincipal) {
         this.viewLogin = viewLogin;
         this.controlRegistro = controlRegistro;
+        this.controlPrincipal = controlPrincipal;
         
         this.viewLogin.txtNomUsuario.addMouseListener(this);
         this.viewLogin.pfPassword.addMouseListener(this);
         this.viewLogin.jlbIco3.addMouseListener(this);
+        this.viewLogin.jlbRegistro.addMouseListener(this);
         
         this.viewLogin.bEntrar.addActionListener(this);
+    }
+
+    public void setControlRegistro(ControlRegistro controlRegistro) {
+        this.controlRegistro = controlRegistro;
+    }
+
+    public void setControlPrincipal(ControlPrincipal controlPrincipal) {
+        this.controlPrincipal = controlPrincipal;
     }
 
     public void iniciarVistaLogin() throws UnsupportedLookAndFeelException{
@@ -100,7 +111,7 @@ public class ControlLogin implements MouseListener,ActionListener{ //implements 
             bandera = !bandera;
             
             if(bandera){
-                viewLogin.jlbIco3.setIcon(new ImageIcon(getClass().getResource("/icons/eyeOFF.png")));
+                viewLogin.jlbIco3.setIcon(new ImageIcon(getClass().getResource("/icons/eyeOff.png")));
                 Vpassword();
             }
             else{
@@ -108,9 +119,16 @@ public class ControlLogin implements MouseListener,ActionListener{ //implements 
                 Vpassword();
             }
         }
+        
+        if(viewLogin.jlbRegistro == e.getSource()){
+            try {
+                controlRegistro.iniciarVistaRegistro();
+            } catch (UnsupportedLookAndFeelException ex) {}
+            viewLogin.dispose();
+        }
     }
     
-    public void Vpassword(){ //Metodo para la visualisación de la contraseña
+    public void Vpassword(){ 
        
         if ((String.valueOf(viewLogin.pfPassword.getPassword()).isEmpty()) && (bandera == true)){
            viewLogin.pfPassword.setEchoChar('\u2022');
@@ -130,7 +148,7 @@ public class ControlLogin implements MouseListener,ActionListener{ //implements 
     public void actionPerformed(ActionEvent e) {
         if(viewLogin.bEntrar == e.getSource()){
             try {
-                controlRegistro.iniciarVistaRegistro();
+                controlPrincipal.iniciarVistaPrincipal();
             } catch (UnsupportedLookAndFeelException ex) {}
             viewLogin.dispose();
         }
