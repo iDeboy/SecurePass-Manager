@@ -27,8 +27,8 @@
 			<scope>test</scope>
 		</dependency>
         <dependency>
-            <groupId>FlatLaf</groupId>
-            <artifactId>FlatLaf</artifactId>
+            <groupId>com.formdev</groupId>
+            <artifactId>flatlaf</artifactId>
             <version>3.2.5</version>
         </dependency>
         <dependency>
