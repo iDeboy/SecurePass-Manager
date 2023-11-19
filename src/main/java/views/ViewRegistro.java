@@ -39,7 +39,7 @@ public class ViewRegistro extends JFrame{
         
         //JLabel
         jlbImg1 = new JLabel();
-        jlbImg1.setIcon(new ImageIcon(getClass().getResource("/images/img1.png")));
+        jlbImg1.setIcon(new ImageIcon(getClass().getResource("/images/img4.png")));
         
         jlbImgLog = new JLabel();
         jlbImgLog.setIcon(new ImageIcon(getClass().getResource("/images/img2.png")));
@@ -120,7 +120,7 @@ public class ViewRegistro extends JFrame{
         //JButton
         bEntrar = new JButton();
         bEntrar.setBackground(new java.awt.Color(141, 174, 236));
-        bEntrar.setFont(new java.awt.Font("Roboto Mono Medium", 0, 16)); // NOI18N
+        bEntrar.setFont(new java.awt.Font("Roboto Mono Medium", 0, 16)); 
         bEntrar.setForeground(new java.awt.Color(51, 51, 51));
         bEntrar.setText("ENTRAR");
         bEntrar.setBorder(null);
@@ -129,7 +129,7 @@ public class ViewRegistro extends JFrame{
         
         bRegresar = new JButton();
         bRegresar.setBackground(new java.awt.Color(141, 174, 236));
-        bRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/regresar.png"))); // NOI18N
+        bRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/regresar.png"))); 
         bRegresar.setBorder(null);
         bRegresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         bRegresar.setPreferredSize(new java.awt.Dimension(227, 44));
