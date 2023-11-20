@@ -18,8 +18,8 @@ public class ViewCrearCredencialB extends JFrame{
     
     private JPanel PanelPrincipal,PanelMenu;
     private JLabel jlbLogo,jlbNomApp,jlbImg1,jlbIcoP,jlbTitulo2,jlbCVV,jlbBanco,jlbNomTarjeta,jlbCaducidad,jlbDatos;
-    private JTextField txtNomTarjeta,txtCVV,txtBanco,txtCaducidad,txtDatos;
-    private JButton bRespaldo,bCerrar,bHistorial,bCredencial,bGuardar,bRegresar;
+    public JTextField txtNomTarjeta,txtCVV,txtBanco,txtCaducidad,txtDatos;
+    public JButton bRespaldo,bCerrar,bHistorial,bCredencial,bGuardar,bRegresar;
     
     public ViewCrearCredencialB(){
         PanelPrincipal = new javax.swing.JPanel();

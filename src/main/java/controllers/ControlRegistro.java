@@ -45,7 +45,7 @@ public class ControlRegistro implements MouseListener,ActionListener{
         viewRegistro.setTitle("SecurePass Manager");
         viewRegistro.pack();
         viewRegistro.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        viewRegistro.setLocation(250, 90);
+        viewRegistro.setLocationRelativeTo(null);
         viewRegistro.setResizable(false);
         
         UIManager.setLookAndFeel(new FlatLightLaf());
@@ -63,12 +63,14 @@ public class ControlRegistro implements MouseListener,ActionListener{
             try {
                 controlLogin.iniciarVistaLogin();
             } catch (UnsupportedLookAndFeelException ex) {}
+            controlLogin.limpiarTextFields(viewRegistro);
             viewRegistro.dispose();
         }
         if(viewRegistro.bEntrar == e.getSource()){
             try {
                 controlPrincipal.iniciarVistaPrincipal();
             } catch (UnsupportedLookAndFeelException ex) {}
+            controlLogin.limpiarTextFields(viewRegistro);
             viewRegistro.dispose();
         }
     }

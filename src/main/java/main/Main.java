@@ -25,18 +25,19 @@ public class Main {
         ViewRegistro viewRegistro = new ViewRegistro();
 //        ViewCredencialP viewCredencialP  = new ViewCredencialP();
 //        ViewCredencialB viewCredencialB = new ViewCredencialB();
-//        ViewCrearCredencialP viewCrearP = new ViewCrearCredencialP();
-//        ViewCrearCredencialB viewCrearB = new ViewCrearCredencialB();
+        ViewCrearCredencialP viewCrearP = new ViewCrearCredencialP();
+        ViewCrearCredencialB viewCrearB = new ViewCrearCredencialB();
 
         ControlLogin controlLogin = new ControlLogin(viewLogin, null,null);
         ControlRegistro controlRegistro = new ControlRegistro(viewRegistro, controlLogin,null);
-        ControlPrincipal controlPrincipal = new ControlPrincipal(viewPrincipal,controlLogin,controlRegistro,viewTipoCreden);
+        ControlPrincipal controlPrincipal = new ControlPrincipal(viewPrincipal,controlLogin,controlRegistro,viewTipoCreden,null,viewCrearP,viewCrearB);
+        ControlCrearCredencial controlCrearCredencial = new ControlCrearCredencial(viewCrearP,controlPrincipal,viewCrearB,controlLogin,viewTipoCreden);
 //        ControlCredencial controlCredencial = new ControlCredencial(viewCredencialP,controlPrincipal,viewCredencialB);
-//        ControlCrearCredencial controlCrearCredencial = new ControlCrearCredencial(viewCrearP,controlPrincipal,viewCrearB);
         
         controlLogin.setControlRegistro(controlRegistro);
         controlLogin.setControlPrincipal(controlPrincipal);
         controlRegistro.setControlPrincipal(controlPrincipal);
+        controlPrincipal.setControlCrearCred(controlCrearCredencial);
         
         controlLogin.iniciarVistaLogin();
 
