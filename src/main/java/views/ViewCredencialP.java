@@ -18,7 +18,8 @@ import javax.swing.JTextField;
 public class ViewCredencialP extends JFrame{
     
     private JPanel PanelPrincipal,PanelMenu,PanelDatos;
-    private JLabel jlbLogo, jlbNomApp, jlbImg1,jlb,jlbIco,jlbTitulo2,jlbIco1,jlbIco2,jlbIco3,jlbIco4,jlbPlataforma,jlbUsuario,jlbPassword,jlbURL,jlbDatos,jlbActualizacion;
+    private JLabel jlbLogo, jlbNomApp, jlbImg1,jlbIco,jlbTitulo2,jlbPlataforma,jlbUsuario,jlbPassword,jlbURL,jlbDatos,jlbActualizacion;
+    public JLabel jlbIco1,jlbIco2,jlbIco3,jlbIco4;
     public JButton bRespaldo,bCerrar,bHistorial,bCredencial,bGuardar,bEliminar,bPrincipal;
     public JTextField txtPlataforma,txtUsuario,txtPassword,txtURL,txtDatos;
     public JLabel jlbFecha;

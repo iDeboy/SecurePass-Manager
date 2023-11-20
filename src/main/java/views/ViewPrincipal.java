@@ -24,7 +24,7 @@ public class ViewPrincipal extends JFrame{
     
     private JPanel PanelPrincipal,PanelMenu,PanelFiltro;
     private JLabel jlbIco1, jlbTituloF, jlbLogo, jlbNomApp, jlbImg1;
-    public JButton bRespaldo,bCerrar,bHistorial,bCredencial;
+    public JButton bRespaldo,bCerrar,bHistorial,bCredencial,bBuscar;
     public JTextField txtBuscar;
     public JTable jTLista;
     public DefaultTableModel modelo;
@@ -70,6 +70,11 @@ public class ViewPrincipal extends JFrame{
         jlbImg1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/img5.png")));
         
         //JButton
+        bBuscar = new JButton();
+        bBuscar.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        bBuscar.setText("BUSCAR");
+        bBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        
         bRespaldo = new JButton();
         bRespaldo.setBackground(new java.awt.Color(31, 74, 125));
         bRespaldo.setFont(new java.awt.Font("Roboto Mono", 0, 16)); 
@@ -110,9 +115,7 @@ public class ViewPrincipal extends JFrame{
         
         //JTextFiedl
         txtBuscar = new JTextField();
-        txtBuscar.setFont(new java.awt.Font("Roboto Mono", 0, 15)); 
-        txtBuscar.setForeground(new java.awt.Color(102, 102, 102));
-        txtBuscar.setText("Buscar");
+        txtBuscar.setFont(new java.awt.Font("Roboto Mono", 0, 15));
         txtBuscar.setPreferredSize(new java.awt.Dimension(338, 40));
         
         //JTable
@@ -187,6 +190,7 @@ public class ViewPrincipal extends JFrame{
         PanelMenu.add(bCredencial, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 230, 60));
         PanelPrincipal.add(PanelMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 640));
         PanelPrincipal.add(jlbImg1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 0, -1, -1));
+        PanelPrincipal.add(bBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 70, 100, 40));
         
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

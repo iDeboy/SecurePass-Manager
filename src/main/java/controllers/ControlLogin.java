@@ -6,14 +6,15 @@ package controllers;
 
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -55,7 +56,7 @@ public class ControlLogin implements MouseListener,ActionListener{ //implements 
         viewLogin.setTitle("SecurePass Manager");
         viewLogin.pack();
         viewLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        viewLogin.setLocation(250, 90);
+        viewLogin.setLocationRelativeTo(null);
         viewLogin.setResizable(false);
               
         viewLogin.pfPassword.setEchoChar((char) 0);
@@ -124,6 +125,12 @@ public class ControlLogin implements MouseListener,ActionListener{ //implements 
             try {
                 controlRegistro.iniciarVistaRegistro();
             } catch (UnsupportedLookAndFeelException ex) {}
+            
+            limpiarTextFields(viewLogin);
+            viewLogin.pfPassword.setText("Contraseña");
+            viewLogin.pfPassword.setForeground(new Color(102, 102, 102));
+            viewLogin.txtNomUsuario.setText("Usuario");
+            viewLogin.txtNomUsuario.setForeground(new Color(102, 102, 102));
             viewLogin.dispose();
         }
     }
@@ -150,7 +157,25 @@ public class ControlLogin implements MouseListener,ActionListener{ //implements 
             try {
                 controlPrincipal.iniciarVistaPrincipal();
             } catch (UnsupportedLookAndFeelException ex) {}
+            
+            limpiarTextFields(viewLogin);
+            viewLogin.pfPassword.setText("Contraseña");
+            viewLogin.pfPassword.setForeground(new Color(102, 102, 102));
+            viewLogin.txtNomUsuario.setText("Usuario");
+            viewLogin.txtNomUsuario.setForeground(new Color(102, 102, 102));
             viewLogin.dispose();
+        }
+    }
+    
+    public void limpiarTextFields(Container container) {
+        Component[] components = container.getComponents();
+        for (Component component : components) {
+            if (component instanceof JTextField) {
+                JTextField textField = (JTextField) component;
+                textField.setText("");
+            } else if (component instanceof Container) {
+                limpiarTextFields((Container) component);
+            }
         }
     }
     
