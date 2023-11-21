@@ -1,5 +1,7 @@
 package models;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.regex.Pattern;
 import repositories.AESCipher;
 
@@ -8,7 +10,7 @@ public final class CredencialBancaria extends AbstractCredencial {
 	private String nombreBanco;
 	private String numeroTarjeta;
 	private String cvv;
-	private java.sql.Date fechaCaducidad;
+	private Date fechaCaducidad;
 
 	/**
 	 * Asigna el nombre del banco a la credencial bancaria.
@@ -40,7 +42,7 @@ public final class CredencialBancaria extends AbstractCredencial {
 
 		Pattern pattern = Pattern.compile("^\\d{16}$");
 		if (!pattern.matcher(numeroTarjeta).matches()) {
-			throw new Exception("El numero de tarjeta no tiene un formati valudo.");
+			throw new Exception("El numero de tarjeta no tiene un formati valido.");
 		}
 
 		this.numeroTarjeta = numeroTarjeta;
@@ -55,7 +57,27 @@ public final class CredencialBancaria extends AbstractCredencial {
 	 * @param cvv CVV de la tarjeta.
 	 */
 	public void setCVV(String cvv) throws Exception {
+
+		if (cvv.length() != 3) {
+			throw new Exception("El CVV tiene que tener 3 digitos.");
+		}
+
+		Pattern pattern = Pattern.compile("^\\d{3}$");
+		if (!pattern.matcher(cvv).matches()) {
+			throw new Exception("El CVV no tiene un formati valido.");
+		}
+
 		this.cvv = AESCipher.encrypt(cvv, getNombreUsuario());
+	}
+
+	/**
+	 * Asigna e CVV de la tarjeta encriptada.
+	 *
+	 * @param cvv CVV de la tarjeta encriptada.
+	 */
+	public void setEncryptedCVV(String cvv) {
+
+		this.cvv = cvv;
 	}
 
 	/**
@@ -65,11 +87,21 @@ public final class CredencialBancaria extends AbstractCredencial {
 	 *
 	 * @param fechaCaducidad Fecha de caducidad de la tarjeta.
 	 */
-	public void setFechaCaducidad(java.util.Date fechaCaducidad) {
+	public void setFechaCaducidad(LocalDate fechaCaducidad) {
 
-		this.fechaCaducidad = new java.sql.Date(
-						fechaCaducidad.getYear(),
-						fechaCaducidad.getMonth(), 1);
+		this.fechaCaducidad = Date.valueOf(fechaCaducidad);
+	}
+
+	/**
+	 * Asigna la fecha de caducidad de la tarjeta.
+	 * <br>
+	 * Nota: Unicamente se guardara el mes y el año.
+	 *
+	 * @param fechaCaducidad Fecha de caducidad de la tarjeta.
+	 */
+	public void setFechaCaducidad(Date fechaCaducidad) {
+
+		this.fechaCaducidad = fechaCaducidad;
 	}
 
 	/**
@@ -109,13 +141,18 @@ public final class CredencialBancaria extends AbstractCredencial {
 	 *
 	 * @return Devuelve la fecha de caducidad de la credencial.
 	 */
-	public java.sql.Date getFechaCaducidad() {
+	public Date getFechaCaducidad() {
 		return fechaCaducidad;
 	}
 
 	@Override
-	public void show() {
-		throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+	public String[] show() {
+
+		String[] result = new String[2];
+		result[0] = nombreBanco;
+		result[1] = "\u2022\u2022\u2022\u2022 \u2022\u2022\u2022\u2022 \u2022\u2022\u2022\u2022 " + numeroTarjeta.substring(12);
+
+		return result;
 	}
 
 }

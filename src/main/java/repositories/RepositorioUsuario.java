@@ -70,7 +70,7 @@ public final class RepositorioUsuario {
 	 */
 	public static boolean addUsuario(Usuario usuario) {
 
-		if (usuario == null) {
+		if (!validarUsuario(usuario)) {
 			return false;
 		}
 
@@ -98,6 +98,35 @@ public final class RepositorioUsuario {
 		}
 
 		return false;
+	}
+
+	static boolean validarUsuario(Usuario usuario) {
+
+		if (usuario == null) {
+			return false;
+		}
+
+		if (!validateStr(usuario.getNombre())) {
+			return false;
+		}
+
+		if (!validateStr(usuario.getNombrePersona())) {
+			return false;
+		}
+
+		if (!validateStr(usuario.getApellidoMeternoPersona())) {
+			return false;
+		}
+
+		if (!validateStr(usuario.getApellidoPaternoPersona())) {
+			return false;
+		}
+
+		return true;
+	}
+
+	private static boolean validateStr(String str) {
+		return str != null && !str.isEmpty();
 	}
 
 }

@@ -75,6 +75,15 @@ public final class CredencialInternet extends AbstractCredencial {
 	}
 
 	/**
+	 * Asigna la contraseña de la cuenta de usuario encriptada.
+	 *
+	 * @param password Contraseña de la cuenta de usuario encriptada.
+	 */
+	public void setEncryptedPassword(String password) {
+		this.password = password;
+	}
+
+	/**
 	 *
 	 * @return Devuelve el nombre de la plataforma en el cual se registró
 	 * <br>
@@ -124,8 +133,13 @@ public final class CredencialInternet extends AbstractCredencial {
 	}
 
 	@Override
-	public void show() {
-		throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+	public String[] show() {
+
+		String[] result = new String[2];
+		result[0] = nombrePlataforma;
+		result[1] = usuarioWeb;
+
+		return result;
 	}
 
 }

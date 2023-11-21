@@ -1,131 +1,241 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package controllers;
 
-import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.UnsupportedLookAndFeelException;
-import views.ViewCrearCredencialB;
-import views.ViewCrearCredencialP;
+import models.CredencialBancaria;
+import models.CredencialInternet;
+import models.CredencialTableModel;
+import models.ICredencial;
+import models.Usuario;
+import repositories.*;
+import views.ViewCredencialB;
+import views.ViewCredencialP;
 import views.ViewLogin;
 import views.ViewPrincipal;
 import views.ViewTipoCreden;
 
-/**
- *
- * @author laura
- */
-public class ControlPrincipal implements ActionListener{
-    
-    private ViewPrincipal viewPrincipal;
-    private ViewLogin viewLogin;
-    private ControlLogin controlLogin;
-    private ControlRegistro controlRegistro;
-    private ViewTipoCreden viewTipoCrede;
-    private ControlCrearCredencial controlCrearCred;
-    private ViewCrearCredencialP viewCreaP;
-    private ViewCrearCredencialB viewCreaB;
+public class ControlPrincipal extends MouseAdapter implements ActionListener, ItemListener {
 
-    public ControlPrincipal(ViewPrincipal viewPrincipal, ControlLogin controlLogin, ControlRegistro controlRegistro,ViewTipoCreden viewTipoCrede,ControlCrearCredencial controlCrearCred,ViewCrearCredencialP viewCreaP,ViewCrearCredencialB viewCreaB) {
-        this.viewPrincipal = viewPrincipal;
-        this.controlLogin = controlLogin;
-        this.controlRegistro = controlRegistro;
-        this.viewTipoCrede = viewTipoCrede;
-        this.controlCrearCred = controlCrearCred;
-        this.viewCreaP = viewCreaP;
-        this.viewCreaB = viewCreaB;
-        
-        this.viewPrincipal.bCredencial.addActionListener(this);
-        this.viewPrincipal.bCerrar.addActionListener(this);
-        this.viewTipoCrede.bPlataforma.addActionListener(this);
-        this.viewTipoCrede.bBanco.addActionListener(this);
-        this.viewPrincipal.bBuscar.addActionListener(this);
-    }
+	private ViewPrincipal viewPrincipal;
 
-    public void setControlCrearCred(ControlCrearCredencial controlCrearCred) {
-        this.controlCrearCred = controlCrearCred;
-    }
+	private final Usuario usuario;
+	private final List<ICredencial> credenciales;
+	private final CredencialTableModel tableModel;
 
-    public void iniciarVistaPrincipal() throws UnsupportedLookAndFeelException{
-        viewPrincipal.setTitle("SecurePass Manager");
-        viewPrincipal.pack();
-        viewPrincipal.setLocationRelativeTo(null);
-        viewPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        viewPrincipal.setResizable(false);
-        
-        UIManager.setLookAndFeel(new FlatLightLaf());
-        
-        viewPrincipal.jcbBanco.putClientProperty( "Component.arc", 0 );
-        viewPrincipal.jcbCorreo.putClientProperty( "Component.arc", 0 );
-        viewPrincipal.jcbPlataforma.putClientProperty( "Component.arc", 0 );
-        
-        UIManager.put( "Component.arrowType", "triangle" );
-        
-        SwingUtilities.updateComponentTreeUI(viewPrincipal);
-        viewPrincipal.setVisible(true);
-    }
-    
-    public void iniciarVistaSelección() throws UnsupportedLookAndFeelException{
-        viewTipoCrede.setTitle("SecurePass Manager");
-        viewTipoCrede.pack();
-        viewTipoCrede.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        viewTipoCrede.setResizable(false);
-        viewTipoCrede.setLocationRelativeTo(viewPrincipal);
-        
-        UIManager.setLookAndFeel(new FlatLightLaf());
-        
-        SwingUtilities.updateComponentTreeUI(viewTipoCrede);
-        viewTipoCrede.setVisible(true);
-    }
+	public ControlPrincipal(ViewPrincipal viewPrincipal, Usuario usuario) {
+		this.viewPrincipal = viewPrincipal;
+		this.usuario = usuario;
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (viewPrincipal.bCredencial == e.getSource()){
-            try {
-                iniciarVistaSelección();
-            } catch (UnsupportedLookAndFeelException ex) {}
-        }
-        if (viewPrincipal.bCerrar == e.getSource()){
-            try {
-                controlLogin.iniciarVistaLogin();
-            } catch (UnsupportedLookAndFeelException ex) {}
-            controlLogin.limpiarTextFields(viewPrincipal);
-            viewPrincipal.dispose();
-            viewTipoCrede.dispose();
-        }
-        if(viewPrincipal.bBuscar == e.getSource()){
-            controlLogin.limpiarTextFields(viewPrincipal);
-        }
-        
-        
-        if(viewTipoCrede.bPlataforma == e.getSource()){
-            try {
-                controlCrearCred.iniciarVistaCrearP();
-            } catch (UnsupportedLookAndFeelException ex) {}
-            controlLogin.limpiarTextFields(viewCreaP);
-            controlLogin.limpiarTextFields(viewPrincipal);
-            viewCreaB.dispose();
-            viewPrincipal.dispose();
-            viewTipoCrede.dispose();
-        }
-        
-        if(viewTipoCrede.bBanco == e.getSource()){
-            try {
-                controlCrearCred.iniciarVistaCrearB();
-            } catch (UnsupportedLookAndFeelException ex) {}
-            controlLogin.limpiarTextFields(viewCreaB);
-            controlLogin.limpiarTextFields(viewPrincipal);
-            viewCreaP.dispose();
-            viewPrincipal.dispose();
-            viewTipoCrede.dispose();
-        }
-        
-    }  
-    
+		credenciales = RepositorioCredencial.getCredenciales(usuario);
+
+		tableModel = new CredencialTableModel(credenciales);
+		this.viewPrincipal.jTLista.setModel(tableModel);
+
+		this.viewPrincipal.jTLista.addMouseListener(this);
+
+		this.viewPrincipal.bCredencial.addActionListener(this);
+		this.viewPrincipal.bCerrar.addActionListener(this);
+
+		this.viewPrincipal.jcbPlataforma.addItemListener(this);
+		this.viewPrincipal.jcbBanco.addItemListener(this);
+		this.viewPrincipal.jcbCorreo.addItemListener(this);
+
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+
+		if (e.getSource() != viewPrincipal.jTLista) {
+			return;
+		}
+
+		var jTabla = viewPrincipal.jTLista;
+
+		if (e.getClickCount() == 2 && e.getButton() == MouseEvent.BUTTON1) {
+
+			var index = jTabla.getSelectedRow();
+
+			if (index != -1) {
+
+				var credencial = tableModel.getCredencialAt(index);
+				
+				// Mostrar credencial
+				try {
+					if (credencial instanceof CredencialInternet cInternet) {
+
+						ViewCredencialP viewCredencial = new ViewCredencialP();
+
+						ControlCredencial cCredencial = new ControlCredencial(viewCredencial, cInternet, tableModel);
+						cCredencial.iniciarVista(viewPrincipal);
+
+					}
+
+					if (credencial instanceof CredencialBancaria cBancaria) {
+
+						ViewCredencialB viewCredencial = new ViewCredencialB();
+
+						ControlCredencial cCredencial = new ControlCredencial(viewCredencial, cBancaria, tableModel);
+						cCredencial.iniciarVista(viewPrincipal);
+
+					}
+				} catch (Exception ex) {
+				}
+
+			}
+
+		}
+	}
+
+	@Override
+	public void itemStateChanged(ItemEvent e) {
+
+		if (e.getStateChange() == ItemEvent.DESELECTED) {
+			return;
+		}
+
+		var cbPlat = viewPrincipal.jcbPlataforma;
+		var cbBanco = viewPrincipal.jcbBanco;
+		var cbCorreo = viewPrincipal.jcbCorreo;
+
+		var selected = (String) e.getItem();
+
+		if (e.getSource() == cbPlat) {
+
+			if (!selected.equals(cbPlat.getItemAt(0))) {
+
+				cbBanco.setSelectedIndex(0);
+				cbCorreo.setSelectedIndex(0);
+
+				var filtered = credenciales.stream()
+								.filter(c -> c instanceof CredencialInternet cInternet
+								&& cInternet.getNombrePlataforma().equals(selected))
+								.toList();
+
+				tableModel.setCredenciales(filtered);
+
+			} else {
+
+				if (cbBanco.getSelectedIndex() == 0
+								&& cbCorreo.getSelectedIndex() == 0) {
+
+					tableModel.clear();
+
+				}
+
+			}
+
+		}
+
+		if (e.getSource() == cbBanco) {
+
+			if (!selected.equals(cbBanco.getItemAt(0))) {
+
+				cbPlat.setSelectedIndex(0);
+				cbCorreo.setSelectedIndex(0);
+
+				var filtered = credenciales.stream()
+								.filter(c -> c instanceof CredencialBancaria cBancaria
+								&& cBancaria.getNombreBanco().equals(selected))
+								.toList();
+
+				tableModel.setCredenciales(filtered);
+
+			} else {
+
+				if (cbPlat.getSelectedIndex() == 0
+								&& cbCorreo.getSelectedIndex() == 0) {
+
+					tableModel.clear();
+
+				}
+
+			}
+
+		}
+
+		if (e.getSource() == cbCorreo) {
+
+			if (!selected.equals(cbCorreo.getItemAt(0))) {
+
+				cbPlat.setSelectedIndex(0);
+				cbBanco.setSelectedIndex(0);
+
+				var filtered = credenciales.stream()
+								.filter(c -> c instanceof CredencialInternet cInternet
+								&& cInternet.getUsuarioWeb().equals(selected))
+								.toList();
+
+				tableModel.setCredenciales(filtered);
+
+			} else {
+
+				if (cbPlat.getSelectedIndex() == 0
+								&& cbBanco.getSelectedIndex() == 0) {
+
+					tableModel.clear();
+
+				}
+
+			}
+
+		}
+
+	}
+
+	public void iniciarVistaPrincipal() throws UnsupportedLookAndFeelException {
+
+		DefaultComboBoxModel pModel = (DefaultComboBoxModel) viewPrincipal.jcbPlataforma.getModel();
+		pModel.addAll(RepositorioCredencial.getPlataformas(usuario));
+
+		DefaultComboBoxModel bModel = (DefaultComboBoxModel) viewPrincipal.jcbBanco.getModel();
+		bModel.addAll(RepositorioCredencial.getBancos(usuario));
+
+		DefaultComboBoxModel cModel = (DefaultComboBoxModel) viewPrincipal.jcbCorreo.getModel();
+		cModel.addAll(RepositorioCredencial.getuUsuariosWeb(usuario));
+
+		viewPrincipal.setVisible(true);
+	}
+
+	public void iniciarVistaSelección() throws UnsupportedLookAndFeelException {
+
+		ViewTipoCreden viewTipoCrede = new ViewTipoCreden();
+		viewTipoCrede.setLocationRelativeTo(viewPrincipal);
+
+		ControlTipoCreden cTipoC = new ControlTipoCreden(viewTipoCrede, usuario, tableModel);
+		cTipoC.iniciarView();
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if (viewPrincipal.bCredencial == e.getSource()) {
+			try {
+				iniciarVistaSelección();
+			} catch (UnsupportedLookAndFeelException ex) {
+			}
+		}
+		if (viewPrincipal.bCerrar == e.getSource()) {
+			try {
+
+				ViewLogin login = new ViewLogin();
+				ControlLogin cLogin = new ControlLogin(login);
+				cLogin.iniciarVistaLogin();
+				viewPrincipal.dispose();
+
+			} catch (UnsupportedLookAndFeelException ex) {
+			}
+
+		}
+	}
+
+	public ViewPrincipal getView() {
+		return viewPrincipal;
+	}
+
 }

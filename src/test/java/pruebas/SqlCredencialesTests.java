@@ -1,5 +1,7 @@
 package pruebas;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import models.CredencialBancaria;
 import models.CredencialInternet;
@@ -56,7 +58,7 @@ public final class SqlCredencialesTests {
 		credencial.setPassword("Prueba");
 		credencial.setUrl("Prueba");
 		credencial.setInfoExtra("Prueba");
-		var now = new Date();
+		var now = LocalDateTime.now();
 		credencial.setFechaAlta(now);
 		credencial.setFechaUpdate(now);
 
@@ -80,9 +82,9 @@ public final class SqlCredencialesTests {
 		credencial.setNombreBanco("Prueba");
 		credencial.setNumeroTarjeta("1111222233334444");
 		credencial.setCVV("123");
-		credencial.setFechaCaducidad(new Date(2025 - 1900, 11, 1));
+		credencial.setFechaCaducidad(LocalDate.of(2025, 12, 1));
 		credencial.setInfoExtra("Prueba");
-		var now = new Date();
+		var now = LocalDateTime.now();
 		credencial.setFechaAlta(now);
 		credencial.setFechaUpdate(now);
 
@@ -108,7 +110,7 @@ public final class SqlCredencialesTests {
 		credencial.setPassword("Prueba");
 		credencial.setUrl("Prueba");
 		credencial.setInfoExtra("Prueba");
-		var now = new Date();
+		var now = LocalDateTime.now();
 		credencial.setFechaAlta(now);
 		credencial.setFechaUpdate(now);
 
@@ -136,9 +138,9 @@ public final class SqlCredencialesTests {
 		credencial.setNombreBanco("Prueba");
 		credencial.setNumeroTarjeta("1111222233334444");
 		credencial.setCVV("123");
-		credencial.setFechaCaducidad(new Date(2025 - 1900, 11, 1));
+		credencial.setFechaCaducidad(LocalDate.of(2025, 12, 1));
 		credencial.setInfoExtra("Prueba");
-		var now = new Date();
+		var now = LocalDateTime.now();
 		credencial.setFechaAlta(now);
 		credencial.setFechaUpdate(now);
 
@@ -157,7 +159,7 @@ public final class SqlCredencialesTests {
 		}
 
 	}
-	
+
 	@Test
 	public void removeCredencialInternet() throws Exception {
 
@@ -169,7 +171,7 @@ public final class SqlCredencialesTests {
 		credencial.setPassword("Prueba");
 		credencial.setUrl("Prueba");
 		credencial.setInfoExtra("Prueba");
-		var now = new Date();
+		var now = LocalDateTime.now();
 		credencial.setFechaAlta(now);
 		credencial.setFechaUpdate(now);
 
@@ -187,9 +189,9 @@ public final class SqlCredencialesTests {
 		credencial.setNombreBanco("Prueba");
 		credencial.setNumeroTarjeta("1111222233334444");
 		credencial.setCVV("123");
-		credencial.setFechaCaducidad(new Date(2025 - 1900, 11, 1));
+		credencial.setFechaCaducidad(LocalDate.of(2025, 12, 1));
 		credencial.setInfoExtra("Prueba");
-		var now = new Date();
+		var now = LocalDateTime.now();
 		credencial.setFechaAlta(now);
 		credencial.setFechaUpdate(now);
 

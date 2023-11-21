@@ -1,5 +1,8 @@
 package models;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+
 /**
  * Interfaz que representa los métodos y propiedades básicas que debe tener una
  * credencial.
@@ -37,7 +40,16 @@ public interface ICredencial {
 	 *
 	 * @param fechaAlta Fecha de alta.
 	 */
-	public void setFechaAlta(java.util.Date fechaAlta);
+	public void setFechaAlta(LocalDateTime fechaAlta);
+
+	/**
+	 * Asigna el valor de la fecha de alta de la credecial.
+	 * <br>
+	 * Nota: Tiene el siguiente formato "dd/MM/aaaa hh:mm:ss"
+	 *
+	 * @param fechaAlta Fecha de alta.
+	 */
+	public void setFechaAlta(Timestamp fechaAlta);
 
 	/**
 	 * Asigna el valor de la fecha del utimo cambio en la credecial.
@@ -46,7 +58,16 @@ public interface ICredencial {
 	 *
 	 * @param fechaUpdate Fecha de ultimo cambio
 	 */
-	public void setFechaUpdate(java.util.Date fechaUpdate);
+	public void setFechaUpdate(LocalDateTime fechaUpdate);
+
+	/**
+	 * Asigna el valor de la fecha del utimo cambio en la credecial.
+	 * <br>
+	 * Nota: Tiene el siguiente formato "dd/MM/aaaa hh:mm:ss"
+	 *
+	 * @param fechaUpdate Fecha de ultimo cambio
+	 */
+	public void setFechaUpdate(Timestamp fechaUpdate);
 
 	/**
 	 * Asigna el valor de cualquier dato extra para la credencial.
@@ -66,12 +87,12 @@ public interface ICredencial {
 	/**
 	 * @return Devuelve la fecha en la que se dio de alta la credencial.
 	 */
-	java.sql.Date getFechaAlta();
+	Timestamp getFechaAlta();
 
 	/**
 	 * @return Devuelve la ultima fecha en la que se actualizó la credencial.
 	 */
-	java.sql.Date getFechaUpdate();
+	Timestamp getFechaUpdate();
 
 	/**
 	 * @return Devuelve algun dato extra que sea relevante para la credencial.
@@ -81,6 +102,6 @@ public interface ICredencial {
 	/**
 	 * Método para que la credencial muestre los datos que sean relevantes.
 	 */
-	void show();
+	String[] show();
 
 }

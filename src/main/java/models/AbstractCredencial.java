@@ -1,5 +1,8 @@
 package models;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+
 /**
  * Representación abstracta de una credencial.
  */
@@ -8,8 +11,8 @@ public abstract class AbstractCredencial implements ICredencial {
 	protected String nombreUsuario;
 
 	protected int id;
-	protected java.sql.Date fechaAlta;
-	protected java.sql.Date fechaUpdate;
+	protected Timestamp fechaAlta;
+	protected Timestamp fechaUpdate;
 	protected String infoExtra;
 
 	@Override
@@ -31,13 +34,23 @@ public abstract class AbstractCredencial implements ICredencial {
 	}
 
 	@Override
-	public void setFechaAlta(java.util.Date fechaAlta) {
-		this.fechaAlta = new java.sql.Date(fechaAlta.getTime());
+	public void setFechaAlta(LocalDateTime fechaAlta) {
+		this.fechaAlta = Timestamp.valueOf(fechaAlta);
 	}
 
 	@Override
-	public void setFechaUpdate(java.util.Date fechaUpdate) {
-		this.fechaUpdate = new java.sql.Date(fechaUpdate.getTime());
+	public void setFechaUpdate(LocalDateTime fechaUpdate) {
+		this.fechaUpdate = Timestamp.valueOf(fechaUpdate);
+	}
+	
+	@Override
+	public void setFechaAlta(Timestamp fechaAlta) {
+		this.fechaAlta = fechaAlta;
+	}
+
+	@Override
+	public void setFechaUpdate(Timestamp fechaUpdate) {
+		this.fechaUpdate = fechaUpdate;
 	}
 
 	@Override
@@ -51,12 +64,12 @@ public abstract class AbstractCredencial implements ICredencial {
 	}
 
 	@Override
-	public java.sql.Date getFechaAlta() {
+	public Timestamp getFechaAlta() {
 		return fechaAlta;
 	}
 
 	@Override
-	public java.sql.Date getFechaUpdate() {
+	public Timestamp getFechaUpdate() {
 		return fechaUpdate;
 	}
 

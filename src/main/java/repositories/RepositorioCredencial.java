@@ -1,5 +1,6 @@
 package repositories;
 
+import java.time.LocalDateTime;
 import sql.SqlConnection;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,7 @@ public final class RepositorioCredencial {
 	 */
 	public static boolean addCredencial(ICredencial credencial) {
 
-		if (credencial == null) {
+		if (!validarCredencial(credencial)) {
 			return false;
 		}
 
@@ -43,8 +44,8 @@ public final class RepositorioCredencial {
 					stmt.setString(2, cInternet.getUsuarioWeb());
 					stmt.setString(3, cInternet.getUrl());
 					stmt.setString(4, cInternet.getEncryptedPassword());
-					stmt.setDate(5, cInternet.getFechaAlta());
-					stmt.setDate(6, cInternet.getFechaUpdate());
+					stmt.setTimestamp(5, cInternet.getFechaAlta());
+					stmt.setTimestamp(6, cInternet.getFechaUpdate());
 					stmt.setString(7, cInternet.getInfoExtra());
 					stmt.setString(8, cInternet.getNombreUsuario());
 
@@ -62,8 +63,8 @@ public final class RepositorioCredencial {
 					stmt.setString(2, cBancaria.getNumeroTarjeta());
 					stmt.setString(3, cBancaria.getEncryptedCVV());
 					stmt.setDate(4, cBancaria.getFechaCaducidad());
-					stmt.setDate(5, cBancaria.getFechaAlta());
-					stmt.setDate(6, cBancaria.getFechaUpdate());
+					stmt.setTimestamp(5, cBancaria.getFechaAlta());
+					stmt.setTimestamp(6, cBancaria.getFechaUpdate());
 					stmt.setString(7, cBancaria.getInfoExtra());
 					stmt.setString(8, cBancaria.getNombreUsuario());
 
@@ -155,7 +156,7 @@ public final class RepositorioCredencial {
 	 */
 	public static boolean editCredencial(ICredencial credencial) {
 
-		if (credencial == null) {
+		if (!validarCredencial(credencial)) {
 			return false;
 		}
 
@@ -163,7 +164,7 @@ public final class RepositorioCredencial {
 
 		try (var conn = sql.getConnection()) {
 
-			credencial.setFechaUpdate(new java.util.Date());
+			credencial.setFechaUpdate(LocalDateTime.now());
 
 			if (credencial instanceof CredencialInternet cInternet) {
 
@@ -177,7 +178,7 @@ public final class RepositorioCredencial {
 					stmt.setString(2, cInternet.getUsuarioWeb());
 					stmt.setString(3, cInternet.getUrl());
 					stmt.setString(4, cInternet.getEncryptedPassword());
-					stmt.setDate(5, credencial.getFechaUpdate());
+					stmt.setTimestamp(5, credencial.getFechaUpdate());
 					stmt.setString(6, cInternet.getInfoExtra());
 					stmt.setInt(7, cInternet.getId());
 
@@ -197,7 +198,7 @@ public final class RepositorioCredencial {
 					stmt.setString(2, cBancaria.getNumeroTarjeta());
 					stmt.setString(3, cBancaria.getEncryptedCVV());
 					stmt.setDate(4, cBancaria.getFechaCaducidad());
-					stmt.setDate(5, cBancaria.getFechaUpdate());
+					stmt.setTimestamp(5, cBancaria.getFechaUpdate());
 					stmt.setString(6, cBancaria.getInfoExtra());
 					stmt.setInt(7, cBancaria.getId());
 
@@ -223,7 +224,7 @@ public final class RepositorioCredencial {
 	 */
 	public static List<CredencialInternet> getCredencialesInternet(Usuario usuario) {
 
-		if (usuario == null) {
+		if (!RepositorioUsuario.validarUsuario(usuario)) {
 			return null;
 		}
 
@@ -249,10 +250,9 @@ public final class RepositorioCredencial {
 						cInternet.setUsuarioWeb(result.getString(3));
 						cInternet.setUrl(result.getString(4));
 
-						var password = AESCipher.decrypt(result.getString(5), cInternet.getNombreUsuario());
-						cInternet.setPassword(password);
-						cInternet.setFechaAlta(result.getDate(6));
-						cInternet.setFechaUpdate(result.getDate(7));
+						cInternet.setEncryptedPassword(result.getString(5));
+						cInternet.setFechaAlta(result.getTimestamp(6));
+						cInternet.setFechaUpdate(result.getTimestamp(7));
 						cInternet.setInfoExtra(result.getString(8));
 
 						credenciales.add(cInternet);
@@ -278,11 +278,12 @@ public final class RepositorioCredencial {
 	 */
 	public static List<CredencialBancaria> getCredencialesBancarias(Usuario usuario) {
 
-		if (usuario == null) {
+		if (!RepositorioUsuario.validarUsuario(usuario)) {
 			return null;
 		}
 
 		var credenciales = new ArrayList<CredencialBancaria>();
+
 		SqlConnection sql = new SqlConnection();
 		try (var conn = sql.getConnection()) {
 
@@ -302,12 +303,11 @@ public final class RepositorioCredencial {
 						cBancaria.setNombreBanco(result.getString(2));
 						cBancaria.setNumeroTarjeta(result.getString(3));
 
-						var cvv = AESCipher.decrypt(result.getString(4), cBancaria.getNombreUsuario());
-						cBancaria.setCVV(cvv);
+						cBancaria.setEncryptedCVV(result.getString(4));
 
 						cBancaria.setFechaCaducidad(result.getDate(5));
-						cBancaria.setFechaAlta(result.getDate(6));
-						cBancaria.setFechaUpdate(result.getDate(7));
+						cBancaria.setFechaAlta(result.getTimestamp(6));
+						cBancaria.setFechaUpdate(result.getTimestamp(7));
 						cBancaria.setInfoExtra(result.getString(8));
 
 						credenciales.add(cBancaria);
@@ -334,7 +334,7 @@ public final class RepositorioCredencial {
 	 */
 	public static List<ICredencial> getCredenciales(Usuario usuario) {
 
-		if (usuario == null) {
+		if (!RepositorioUsuario.validarUsuario(usuario)) {
 			return null;
 		}
 
@@ -356,5 +356,146 @@ public final class RepositorioCredencial {
 		credenciales.addAll(credencialesBancarias);
 
 		return credenciales;
+	}
+
+	public static List<String> getPlataformas(Usuario usuario) {
+
+		if (!RepositorioUsuario.validarUsuario(usuario)) {
+			return null;
+		}
+
+		var plataformas = new ArrayList<String>();
+
+		SqlConnection sql = new SqlConnection();
+		try (var conn = sql.getConnection()) {
+
+			try (var stmt = conn.prepareStatement(
+							"SELECT DISTINCT Nombre_Plataforma FROM T_CREDENCIALES "
+							+ "WHERE FK_Nombre_Usuario = ?")) {
+
+				stmt.setString(1, usuario.getNombre());
+
+				try (var result = stmt.executeQuery()) {
+
+					while (result.next()) {
+						plataformas.add(result.getString(1));
+					}
+				}
+
+			}
+		} catch (Exception ex) {
+
+		}
+
+		return plataformas;
+	}
+
+	public static List<String> getBancos(Usuario usuario) {
+
+		if (!RepositorioUsuario.validarUsuario(usuario)) {
+			return null;
+		}
+
+		var bancos = new ArrayList<String>();
+
+		SqlConnection sql = new SqlConnection();
+		try (var conn = sql.getConnection()) {
+
+			try (var stmt = conn.prepareStatement(
+							"SELECT DISTINCT Nombre_Banco FROM T_CREDENCIALES_BANCARIAS "
+							+ "WHERE FK_Nombre_Usuario = ?")) {
+
+				stmt.setString(1, usuario.getNombre());
+
+				try (var result = stmt.executeQuery()) {
+
+					while (result.next()) {
+						bancos.add(result.getString(1));
+					}
+				}
+
+			}
+		} catch (Exception ex) {
+
+		}
+
+		return bancos;
+	}
+
+	public static List<String> getuUsuariosWeb(Usuario usuario) {
+
+		if (!RepositorioUsuario.validarUsuario(usuario)) {
+			return null;
+		}
+
+		var usuariosWeb = new ArrayList<String>();
+
+		SqlConnection sql = new SqlConnection();
+		try (var conn = sql.getConnection()) {
+
+			try (var stmt = conn.prepareStatement(
+							"SELECT DISTINCT Usuario_Web FROM T_CREDENCIALES "
+							+ "WHERE FK_Nombre_Usuario = ?")) {
+
+				stmt.setString(1, usuario.getNombre());
+
+				try (var result = stmt.executeQuery()) {
+
+					while (result.next()) {
+						usuariosWeb.add(result.getString(1));
+					}
+				}
+
+			}
+		} catch (Exception ex) {
+
+		}
+
+		return usuariosWeb;
+	}
+
+	private static boolean validarCredencial(ICredencial credencial) {
+
+		if (credencial == null) {
+			return false;
+		}
+
+		if (!validateStr(credencial.getNombreUsuario())) {
+			return false;
+		}
+
+		if (credencial instanceof CredencialInternet cInternet) {
+
+			if (!validateStr(cInternet.getNombrePlataforma())) {
+				return false;
+			}
+
+			if (!validateStr(cInternet.getUrl())) {
+				return false;
+			}
+
+			if (!validateStr(cInternet.getUsuarioWeb())) {
+				return false;
+			}
+
+		}
+
+		if (credencial instanceof CredencialBancaria cBancaria) {
+
+			if (!validateStr(cBancaria.getNombreBanco())) {
+				return false;
+			}
+
+			if (!validateStr(cBancaria.getNumeroTarjeta())) {
+				return false;
+			}
+
+		}
+
+		return true;
+	}
+
+	private static boolean validateStr(String str) {
+		return str != null && !str.isEmpty();
 	}
 }
